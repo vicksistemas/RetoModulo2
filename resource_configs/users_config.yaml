@@ -1,0 +1,40 @@
+auth_required: true
+cache_enabled: true
+class_name: Users
+fields:
+- constraints:
+    max_length: 100
+    min_length: 1
+  description: Email como llave del usuario no debe de existir duplicados
+  name: email
+  type: string
+- constraints:
+    max_length: 100
+    min_length: 0
+  description: Nombre del usuario
+  name: nombre
+  type: string
+- constraints: null
+  description: Hash de password no debe ser texto claro
+  name: password
+  type: string
+- constraints: null
+  description: Fecha de nacimiento
+  name: fecha_nac
+  type: date
+- constraints:
+    max_length: 100
+    min_length: 0
+  description: Genero del usuario valores posibles Hombre|Mujer
+  name: genero
+  type: string
+- constraints:
+    max_length: 100
+    min_length: 1
+  description: Lugar de residencia del usuario basado en los estados de la republica
+    mexicana
+  name: estado
+  type: string
+pagination: true
+resource_name: users
+soft_delete: true
