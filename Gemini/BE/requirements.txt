@@ -1,0 +1,6 @@
+fastapi
+uvicorn
+mysqlclient
+sqlalchemy
+pydantic
+passlib[bcrypt]

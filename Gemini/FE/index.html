@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Login / Registro</title>
+    <style>
+        body { font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background-color: #f4f4f4; }
+        .container { background: white; padding: 20px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); width: 300px; }
+        h2 { text-align: center; }
+        input, button { width: 100%; padding: 10px; margin: 10px 0; border: 1px solid #ddd; border-radius: 4px; box-sizing: border-box; }
+        button { background-color: #007bff; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #0056b3; }
+        #message { text-align: center; color: red; margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Acceso al Sistema</h2>
+        <form id="login-form">
+            <input type="text" id="login-username" placeholder="Usuario" required>
+            <input type="password" id="login-password" placeholder="Contraseña" required>
+            <button type="submit">Iniciar Sesión</button>
+        </form>
+        <button onclick="document.getElementById('register-form').style.display='block'; this.style.display='none';">¿No tienes cuenta? Regístrate</button>
+        
+        <form id="register-form" style="display:none; margin-top: 20px;">
+            <h3>Registro</h3>
+            <input type="text" id="reg-username" placeholder="Nuevo Usuario" required>
+            <input type="password" id="reg-password" placeholder="Contraseña" required>
+            <button type="button" onclick="handleRegister()">Registrar</button>
+        </form>
+
+        <p id="message"></p>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

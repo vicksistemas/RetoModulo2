@@ -1,0 +1,53 @@
+version: '3.8'
+
+services:
+  # 1. Servicio de Base de Datos MySQL
+  db:
+    image: mysql:8.0
+    container_name: mysql_db
+    environment:
+      MYSQL_ROOT_PASSWORD: MySQL#123 # ¡Cambiar en producción!
+      MYSQL_DATABASE: user_db
+    ports:
+      - "3306:3306"
+    volumes:
+      # Inicializa la base de datos con nuestro script SQL
+      - ./SQL/init.sql:/docker-entrypoint-initdb.d/init.sql
+    networks:
+      - app-network
+
+  # 2. Servicio de Backend (FastAPI)
+  backend:
+    build:
+      context: ./BE
+    container_name: python_backend
+    # Espera a que la base de datos esté lista
+    depends_on:
+      - db
+    environment:
+      # Usa el nombre del servicio Docker Compose como host
+      DATABASE_HOST: db
+      DATABASE_NAME: user_db
+      DATABASE_USER: root
+      DATABASE_PASS: MySQL#123
+    ports:
+      - "8000:8000"
+    networks:
+      - app-network
+
+  # 3. Servicio de Frontend (Nginx para servir estáticos)
+  frontend:
+    image: nginx:alpine # Imagen muy ligera
+    container_name: nginx_frontend
+    volumes:
+      # Monta los archivos HTML/JS/CSS en el directorio de Nginx
+      - ./FE:/usr/share/nginx/html
+    ports:
+      # Acceso al frontend en localhost:8080
+      - "8080:80"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge
